@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixa Diário</title>
+</head>
+<body>
+    <h1>Fechamento de Caixa</h1>
+    <form id="caixaForm">
+        <label for="nomeRecebeu">Caixa recebido por:</label>
+        <input type="text" id="nomeRecebeu" name="nomeRecebeu"><br>
+        
+        <label for="saldoInicial">Saldo Inicial (R$):</label>
+        <input type="number" id="saldoInicial" name="saldoInicial"><br>  
+         
+        <label for="entrada">Entradas (R$):</label>
+        <input type="number" id="entrada" name="entrada"><br>
+          
+        <label for="saidas">Saídas (R$):</label>
+        <input type="number" id="saidas" name="saidas"><br>
+        
+        <!-- Botão para calcular o saldo final -->
+        <button type="button" onclick="exibirSaldoFinal()">Exibir Saldo Final</button>
+
+        <!-- Elemento para exibir o saldo final -->
+        <p id="saldoFinal"></p>
+
+        <!-- Exibindo a data e hora atual -->
+        <p id="time"></p>
+        <script>
+            function exibirSaldoFinal() {
+                const saldoInicial = parseFloat(document.querySelector("#saldoInicial").value);
+                const entrada = parseFloat(document.querySelector("#entrada").value);
+                const saidas = parseFloat(document.querySelector("#saidas").value);
+
+                // Calcular o saldo final
+                const saldoFinal = saldoInicial + entrada - saidas;
+
+                // Exibir o saldo final na página
+                const saldoFinalElement = document.querySelector("#saldoFinal");
+                saldoFinalElement.textContent = `Saldo Final: R$ ${saldoFinal.toFixed(2)}`;
+            }
+
+            // Atualizar a data e hora atual a cada segundo
+            function refreshTime() {
+                const dateString = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+                const formattedString = dateString.replace(", ", " - ");
+                document.getElementById("time").textContent = formattedString;
+            }
+            setInterval(refreshTime, 1000);
+        </script>
+    </form>
+</body>
+</html>
+
+
